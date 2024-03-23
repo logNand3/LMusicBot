@@ -27,8 +27,6 @@ import java.nio.file.Paths;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.ApplicationInfo;
-import net.dv8tion.jda.api.entities.User;
 import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +41,7 @@ public class OtherUtil
     public final static String NEW_VERSION_AVAILABLE = "There is a new version of JMusicBot available!\n"
                     + "Current version: %s\n"
                     + "New Version: %s\n\n"
-                    + "Please visit https://github.com/jagrosh/MusicBot/releases/latest to get the latest release.";
+                    + "Please visit https://github.com/JaduaStudios/JaduaMusicBot/releases/latest to get the latest release.";
     private final static String WINDOWS_INVALID_PATH = "c:\\windows\\system32\\";
     
     /**
@@ -188,7 +186,7 @@ public class OtherUtil
         try
         {
             Response response = new OkHttpClient.Builder().build()
-                    .newCall(new Request.Builder().get().url("https://api.github.com/repos/jagrosh/MusicBot/releases/latest").build())
+                    .newCall(new Request.Builder().get().url("https://api.github.com/repos/JaduaStudios/JaduaMusicBot/releases/latest").build())
                     .execute();
             ResponseBody body = response.body();
             if(body != null)
@@ -210,21 +208,5 @@ public class OtherUtil
         {
             return null;
         }
-    }
-
-    /**
-     * Checks if the bot JMusicBot is being run on is supported & returns the reason if it is not.
-     * @return A string with the reason, or null if it is supported.
-     */
-    public static String getUnsupportedBotReason(JDA jda) 
-    {
-        if (jda.getSelfUser().getFlags().contains(User.UserFlag.VERIFIED_BOT))
-            return "The bot is verified. Using JMusicBot in a verified bot is not supported.";
-
-        ApplicationInfo info = jda.retrieveApplicationInfo().complete();
-        if (info.isBotPublic())
-            return "\"Public Bot\" is enabled. Using JMusicBot as a public bot is not supported. Please disable it in the Developer Dashboard.";
-
-        return null;
     }
 }
