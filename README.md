@@ -1,15 +1,14 @@
-<img align="right" src="https://i.imgur.com/zrE80HY.png" height="200" width="200">
+<img align="right" src="https://drive.jaduastudios.com/images/logos/InvisBackgroundB.png" height="200" width="474">
 
-# JMusicBot
+# JaduaMusicBot
 
-[![Downloads](https://img.shields.io/github/downloads/jagrosh/MusicBot/total.svg)](https://github.com/jagrosh/MusicBot/releases/latest)
-[![Stars](https://img.shields.io/github/stars/jagrosh/MusicBot.svg)](https://github.com/jagrosh/MusicBot/stargazers)
-[![Release](https://img.shields.io/github/release/jagrosh/MusicBot.svg)](https://github.com/jagrosh/MusicBot/releases/latest)
-[![License](https://img.shields.io/github/license/jagrosh/MusicBot.svg)](https://github.com/jagrosh/MusicBot/blob/master/LICENSE)
-[![Discord](https://discordapp.com/api/guilds/147698382092238848/widget.png)](https://discord.gg/0p9LSGoRLu6Pet0k)<br>
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/jagrosh/MusicBot/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/jagrosh/MusicBot/tree/master)
-[![Build and Test](https://github.com/jagrosh/MusicBot/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/jagrosh/MusicBot/actions/workflows/build-and-test.yml)
-[![CodeFactor](https://www.codefactor.io/repository/github/jagrosh/musicbot/badge)](https://www.codefactor.io/repository/github/jagrosh/musicbot)
+[![Downloads](https://img.shields.io/github/downloads/jaduastudios/JaduaMusicBot/total.svg)](https://github.com/jaduastudios/JaduaMusicBot/releases/latest)
+[![Stars](https://img.shields.io/github/stars/jaduastudios/JaduaMusicBot.svg)](https://github.com/jaduastudios/JaduaMusicBot/stargazers)
+[![Release](https://img.shields.io/github/release/jaduastudios/JaduaMusicBot.svg)](https://github.com/jaduastudios/JaduaMusicBot/releases/latest)
+[![License](https://img.shields.io/github/license/jaduastudios/JaduaMusicBot.svg)](https://github.com/jaduastudios/JaduaMusicBot/blob/master/LICENSE)
+[![Discord](https://discordapp.com/api/guilds/416146028996329482/widget.png)](https://discord.gg/ZUYVXtF)<br>
+[![Build and Test](https://github.com/jaduastudios/JaduaMusicBot/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/jaduastudios/JaduaMusicBot/actions/workflows/build-and-test.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/jaduastudios/jaduamusicbot/badge)](https://www.codefactor.io/repository/github/jaduastudios/jaduamusicbot)
 
 A cross-platform Discord music bot with a clean interface, and that is easy to set up and run yourself!
 
@@ -34,7 +33,10 @@ JMusicBot supports all sources and formats supported by [lavaplayer](https://git
   * SoundCloud
   * Bandcamp
   * Vimeo
+  * Spotify (With API key)
+  * Apple Music (With API key)
   * Twitch streams
+  * Reddit
   * Local files
   * HTTP URLs
 ### Formats
@@ -53,8 +55,11 @@ JMusicBot supports all sources and formats supported by [lavaplayer](https://git
 ## Setup
 Please see the [Setup Page](https://jmusicbot.com/setup) to run this bot yourself!
 
+# JMusicBot (Source)
+This bot has been forked from the amazing [JMusicBot](https://jmusicbot.com/) by the awesome [John Grosh](https://github.com/jagrosh)
+
 ## Questions/Suggestions/Bug Reports
-**Please read the [Issues List](https://github.com/jagrosh/MusicBot/issues) before suggesting a feature**. If you have a question, need troubleshooting help, or want to brainstorm a new feature, please start a [Discussion](https://github.com/jagrosh/MusicBot/discussions). If you'd like to suggest a feature or report a reproducible bug, please open an [Issue](https://github.com/jagrosh/MusicBot/issues) on this repository. If you like this bot, be sure to add a star to the libraries that make this possible: [**JDA**](https://github.com/DV8FromTheWorld/JDA) and [**lavaplayer**](https://github.com/sedmelluq/lavaplayer)!
+If you like this bot, be sure to add a star to the libraries that make this possible: [**JDA**](https://github.com/DV8FromTheWorld/JDA) and [**lavaplayer**](https://github.com/sedmelluq/lavaplayer)!
 
 ## Editing
 This bot (and the source code here) might not be easy to edit for inexperienced programmers. The main purpose of having the source public is to show the capabilities of the libraries, to allow others to understand how the bot works, and to allow those knowledgeable about java, JDA, and Discord bot development to contribute. There are many requirements and dependencies required to edit and compile it, and there will not be support provided for people looking to make changes on their own. Instead, consider making a feature request (see the above section). If you choose to make edits, please do so in accordance with the Apache 2.0 License.
