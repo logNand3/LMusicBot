@@ -30,6 +30,7 @@ import com.jagrosh.jmusicbot.settings.SettingsManager;
 import com.jagrosh.jmusicbot.utils.OtherUtil;
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.logging.Level;
 import javax.security.auth.login.LoginException;
 import net.dv8tion.jda.api.*;
 import net.dv8tion.jda.api.entities.Activity;
@@ -54,27 +55,49 @@ public class JMusicBot
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
-    {
-        if(args.length > 0)
-            switch(args[0].toLowerCase())
-            {
-                case "generate-config":
-                    BotConfig.writeDefaultConfig();
-                    return;
-                default:
+    public static void main(String[] args) {
+        if (args.length > 0) {
+            String firstArg = args[0].toLowerCase();
+            if (firstArg.startsWith("shards=")) {
+                String[] parts = firstArg.split("=");
+                if (parts.length == 2) {
+                    try {
+                        int shardCount = Integer.parseInt(parts[1]);
+                        // Call startBot() shardCount times
+                        for (int i = 0; i < shardCount; i++) {
+                            startBot(i,shardCount);
+                            Thread.sleep(5000);
+                        }
+                    } catch (NumberFormatException e) {
+                        // Handle invalid shard count format
+                        System.err.println("Invalid shard count format");
+                    } catch (InterruptedException ex) {
+                        java.util.logging.Logger.getLogger(JMusicBot.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } else if (firstArg.equals("generate-config")) {
+                BotConfig.writeDefaultConfig();
+                startBot(0,1);
+            } else {
+                startBot(0,1);
             }
-        startBot();
+        }
+         // Default behavior if no arguments or invalid format
+        else {
+            startBot(0,1);
+        }
     }
     
-    private static void startBot()
+    private static void startBot(int shardId, int shardTotal)
     {
         // create prompt to handle startup
-        Prompt prompt = new Prompt("JMusicBot");
+        Prompt prompt = new Prompt("MusicBot " + (shardId + 1) + "/" + shardTotal);
         
-        // startup checks
+        if (shardId == 0) {
+        // Startup checks (only first shard)
         OtherUtil.checkVersion(prompt);
         OtherUtil.checkJavaVersion(prompt);
+        }
         
         // load config
         BotConfig config = new BotConfig(prompt);
@@ -90,7 +113,7 @@ public class JMusicBot
         CommandClient client = createCommandClient(config, settings, bot);
         
         
-        if(!prompt.isNoGUI())
+        if(!prompt.isNoGUI() && shardId == 0)
         {
             try 
             {
@@ -119,19 +142,22 @@ public class JMusicBot
                             ? OnlineStatus.INVISIBLE : OnlineStatus.DO_NOT_DISTURB)
                     .addEventListeners(client, waiter, new Listener(bot))
                     .setBulkDeleteSplittingEnabled(true)
-                    .useSharding(0, 1)
+                    .useSharding(shardId, shardTotal)
                     .build();
             bot.setJDA(jda);
             
             // other check that will just be a warning now but may be required in the future
             // check if the user has changed the prefix and provide info about the 
             // message content intent
-            if(!"@mention".equals(config.getPrefix()))
+            if(!"@mention".equals(config.getPrefix()) && shardId == 0)
             {
                 prompt.alert(Prompt.Level.INFO, "JMusicBot", "You currently have a custom prefix set. "
                         + "If your prefix is not working, make sure that the 'MESSAGE CONTENT INTENT' is Enabled "
                         + "on https://discord.com/developers/applications/" + jda.getSelfUser().getId() + "/bot");
             }
+            
+            LOG.info("Loaded Shard " + (shardId + 1) + "/" + shardTotal);
+            
         }
         catch (LoginException ex)
         {
