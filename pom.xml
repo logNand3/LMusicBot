@@ -18,6 +18,16 @@
             <url>https://jcenter.bintray.com</url>
         </repository>
         <repository>
+		  <id>arbjergDev-releases</id>
+		  <name>Lavalink Repository</name>
+		  <url>https://maven.lavalink.dev/releases</url>
+		</repository>
+		<repository>
+			<id>TopiWTF-releases</id>
+			<name>Topis Maven Repo</name>
+			<url>https://maven.topi.wtf/releases</url>
+		</repository>
+        <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
             <snapshots>
@@ -25,21 +35,6 @@
                 <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
-        <repository>
-            <id>m2.duncte123.dev</id>
-            <name>m2-duncte123</name>
-            <url>https://m2.duncte123.dev/releases</url>
-        </repository>
-        <repository>
-            <id>arbjergDev-snapshots</id>
-            <name>Lavalink Repository</name>
-            <url>https://maven.lavalink.dev/snapshots</url>
-        </repository>
-		<repository>
-			<id>TopiWTF-releases</id>
-			<name>Topis Maven Repo</name>
-			<url>https://maven.topi.wtf/releases</url>
-		</repository>
     </repositories>
 
     <dependencies>
@@ -67,11 +62,11 @@
 	    <artifactId>JLyrics</artifactId>
 	    <version>master-SNAPSHOT</version>
 	</dependency>
-		<dependency>
-		  <groupId>com.dunctebot</groupId>
-		  <artifactId>skybot-lavalink-plugin</artifactId>
-		  <version>1.6.3</version>
-		</dependency>
+    <dependency>
+	  <groupId>com.dunctebot</groupId>
+	  <artifactId>skybot-lavalink-plugin</artifactId>
+	  <version>1.6.3</version>
+	</dependency>
 
 
         <!-- Misc Internal Dependencies -->

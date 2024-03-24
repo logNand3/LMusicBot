@@ -18,5 +18,7 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           cache: maven
+      - name: Install dependencies
+        run: mvn -DartifactId=skybot-lavalink-plugin -DgroupId=com.dunctebot -Dversion=1.6.3 -Dpackaging=jar -Dfile=deps\\skybot-lavalink-plugin-1.6.3.jar -DgeneratePom=false install:install-file
       - name: Build and Test with Maven
         run: mvn --batch-mode --update-snapshots verify
