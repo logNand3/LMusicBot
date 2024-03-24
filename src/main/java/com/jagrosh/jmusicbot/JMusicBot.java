@@ -149,7 +149,7 @@ public class JMusicBot
             // other check that will just be a warning now but may be required in the future
             // check if the user has changed the prefix and provide info about the 
             // message content intent
-            if(!"@mention".equals(config.getPrefix()) && shardId == 0)
+            if(!"@mention".equals(config.getPrefix()) && (shardId + 1 == shardTotal))
             {
                 prompt.alert(Prompt.Level.INFO, "JMusicBot", "You currently have a custom prefix set. "
                         + "If your prefix is not working, make sure that the 'MESSAGE CONTENT INTENT' is Enabled "
