@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 package com.jagrosh.jmusicbot.audio;
+ 
 
 import com.dunctebot.sourcemanagers.DuncteBotSources;
+import com.github.topi314.lavasrc.applemusic.AppleMusicSourceManager;
+import com.github.topi314.lavasrc.spotify.SpotifySourceManager;
 import com.jagrosh.jmusicbot.Bot;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
-import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild; 
 
 /**
  *
@@ -39,9 +42,19 @@ public class PlayerManager extends DefaultAudioPlayerManager
     public void init()
     {
         TransformativeAudioSourceManager.createTransforms(bot.getConfig().getTransforms()).forEach(t -> registerSourceManager(t));
-        AudioSourceManagers.registerRemoteSources(this);
         AudioSourceManagers.registerLocalSource(this);
         DuncteBotSources.registerAll(this, "en-US");
+        
+        if(!"NONE".equals(bot.getConfig().getSpotifyID()) && !"NONE".equals(bot.getConfig().getSpotifySecret()))
+        {
+        this.registerSourceManager(new SpotifySourceManager(null, bot.getConfig().getSpotifyID(), bot.getConfig().getSpotifySecret(), "NL", this));
+        }
+        
+        if(!"NONE".equals(bot.getConfig().getAppleAPI()))
+        {
+        this.registerSourceManager(new AppleMusicSourceManager(null, bot.getConfig().getAppleAPI() , "us", this));
+        }
+        AudioSourceManagers.registerRemoteSources(this);
         source(YoutubeAudioSourceManager.class).setPlaylistPageCount(10);
     }
     
