@@ -66,6 +66,23 @@
 	  <groupId>com.dunctebot</groupId>
 	  <artifactId>skybot-lavalink-plugin</artifactId>
 	  <version>1.6.3</version>
+	  <exclusions>
+        <exclusion>
+          <groupId>com.dunctebot.skybot-lavalink-plugin</groupId> <!-- Exclude Project-D from Project-B -->
+          <artifactId>source-managers</artifactId>
+        </exclusion>
+      </exclusions>
+	</dependency>
+	<dependency>
+	  <groupId>com.dunctebot</groupId>
+	  <artifactId>skybot-lavalink-plugin</artifactId>
+	  <version>1.6.3</version>
+	  <exclusions>
+        <exclusion>
+          <groupId>com.dunctebot</groupId> <!-- Exclude Project-D from Project-B -->
+          <artifactId>source-managers</artifactId>
+        </exclusion>
+      </exclusions>
 	</dependency>
 
 
