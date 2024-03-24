@@ -39,7 +39,7 @@ public class BotConfig
     private final static String END_TOKEN = "/// END OF JMUSICBOT CONFIG ///";
     
     private Path path = null;
-    private String token, prefix, altprefix, helpWord, playlistsFolder, spotifyID, spotifySecret, appleAPI,
+    private String token, prefix, altprefix, helpWord, playlistsFolder, spotifyID, spotifySecret, appleAPI, yandexAPI,
             successEmoji, warningEmoji, errorEmoji, loadingEmoji, searchingEmoji;
     private boolean stayInChannel, songInGame, npImages, updatealerts, useEval, dbots;
     private long owner, maxSeconds, aloneTimeUntilStop;
@@ -83,6 +83,7 @@ public class BotConfig
             spotifyID = config.getString("spotifyid");
             spotifySecret = config.getString("spotifysecret");
             appleAPI = config.getString("applesecret");
+            yandexAPI = config.getString("yandexsecret");
             game = OtherUtil.parseGame(config.getString("game"));
             status = OtherUtil.parseStatus(config.getString("status"));
             stayInChannel = config.getBoolean("stayinchannel");
@@ -378,5 +379,10 @@ public class BotConfig
     public String getAppleAPI()
       {
         return appleAPI;
-    }   
+    }  
+    
+    public String getYandexAPI()
+      {
+        return yandexAPI;
+    }
 }
