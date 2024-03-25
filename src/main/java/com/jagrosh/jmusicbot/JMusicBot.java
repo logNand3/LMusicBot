@@ -66,10 +66,13 @@ public class JMusicBot
                         // Call startBot() shardCount times
                         for (int i = 0; i < shardCount; i++) {
                             startBot(i,shardCount);
+                            Thread.sleep(5000);
                         }
                     } catch (NumberFormatException e) {
                         // Handle invalid shard count format
                         System.err.println("Invalid shard count format");
+                    } catch (InterruptedException ex) {
+                        java.util.logging.Logger.getLogger(JMusicBot.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             } else if (firstArg.equals("generate-config")) {
