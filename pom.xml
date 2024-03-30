@@ -55,6 +55,13 @@
             <version>3.0.5</version>
             <type>pom</type>
         </dependency>
+		
+		<!-- Temporary Fix -->
+		<dependency>
+			<groupId>com.github.Kamilake</groupId>
+			<artifactId>lavaplayer</artifactId>
+			<version>main-SNAPSHOT</version>
+		</dependency>
 
         <!-- Music Dependencies -->
         <dependency>
