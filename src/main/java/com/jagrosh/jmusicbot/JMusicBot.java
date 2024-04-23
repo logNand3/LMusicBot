@@ -30,7 +30,6 @@ import com.jagrosh.jmusicbot.settings.SettingsManager;
 import com.jagrosh.jmusicbot.utils.OtherUtil;
 import java.awt.Color;
 import java.util.Arrays;
-import java.util.logging.Level;
 import javax.security.auth.login.LoginException;
 import net.dv8tion.jda.api.*;
 import net.dv8tion.jda.api.entities.Activity;
@@ -73,7 +72,7 @@ public class JMusicBot
                         // Handle invalid shard count format
                         System.err.println("Invalid shard count format");
                     } catch (InterruptedException ex) {
-                        java.util.logging.Logger.getLogger(JMusicBot.class.getName()).log(Level.SEVERE, null, ex);
+                        LOG.error("Error parsing shard counts");
                     }
                 }
             } else if (firstArg.equals("generate-config")) {
