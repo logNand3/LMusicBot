@@ -1,3 +1,14 @@
+## Unofficial JMusicBot update (Forked from: https://github.com/jagrosh/MusicBot, with @MichailiK commits)
+Compiled using Maven
+
+### In your bot folder, edit "config.txt" and add
+```
+ytpotoken = "PO_TOKEN_HERE"
+ytvisitordata = "VISITOR_DATA_HERE"
+```
+
+To get po_token and visitor_data, use [youtube-trusted-session-generator](https://github.com/iv-org/youtube-trusted-session-generator)
+
 <img align="right" src="https://i.imgur.com/zrE80HY.png" height="200" width="200">
 
 # JMusicBot
