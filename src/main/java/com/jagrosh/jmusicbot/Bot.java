@@ -33,6 +33,8 @@ import net.dv8tion.jda.api.entities.Guild;
 import java.io.*;
 import java.nio.file.*;
 import java.util.regex.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /* */
 
 /**
@@ -169,6 +171,9 @@ public class Bot
     
     private void updateConfig()
     {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String currentTime = sdf.format(new Date());
+
         try {
             Process process = new ProcessBuilder("docker", "run", "quay.io/invidious/youtube-trusted-session-generator")
                     .redirectErrorStream(true)
@@ -195,16 +200,43 @@ public class Bot
 
                 Path configPath = Paths.get("config.txt");
                 String configContent = Files.readString(configPath);
-                configContent = configContent.replaceAll("ytpotoken\\s*=\\s*\"[^\"]*\"", "ytpotoken = \"" + poToken + "\"");
-                configContent = configContent.replaceAll("ytvisitordata\\s*=\\s*\"[^\"]*\"", "ytvisitordata = \"" + visitorData + "\"");
+
+                if (!configContent.contains("ytpotoken =")) {
+                    configContent += "\nytpotoken = \"" + poToken + "\"";
+                } else {
+                    configContent = configContent.replaceAll("ytpotoken\\s*=\\s*\"[^\"]*\"", "ytpotoken = \"" + poToken + "\"");
+                }
+                
+                if (!configContent.contains("//New PO_TOKEN generated at:")) {
+                    configContent += "\n//New PO_TOKEN generated at: " + currentTime;
+                } else {
+                    configContent = configContent.replaceAll("(?<=ytpotoken\\s*=\\s*\"[^\"]*\")[^/]*(?=//New PO_TOKEN generated at:)", "");
+                    configContent = configContent.replaceAll("(?<=ytpotoken\\s*=\\s*\"[^\"]*\")", "//New PO_TOKEN generated at: " + currentTime); 
+                }
+                
+                if (!configContent.contains("ytvisitordata =")) {
+                    configContent += "\nytvisitordata = \"" + visitorData + "\"";
+                } else {
+                    configContent = configContent.replaceAll("ytvisitordata\\s*=\\s*\"[^\"]*\"", "ytvisitordata = \"" + visitorData + "\"");
+                }
+                
+                if (!configContent.contains("//New VISITOR_DATA generated at:")) {
+                    configContent += "\n//New VISITOR_DATA generated at: " + currentTime;
+                } else {
+                    configContent = configContent.replaceAll("(?<=ytvisitordata\\s*=\\s*\"[^\"]*\")[^/]*(?=//New VISITOR_DATA generated at:)", "");
+                    configContent = configContent.replaceAll("(?<=ytvisitordata\\s*=\\s*\"[^\"]*\")", "//New VISITOR_DATA generated at: " + currentTime);
+                }
+                
                 Files.writeString(configPath, configContent);
 
-                System.out.println("INFO: Config.txt succesfully updated!");
+                System.out.println("[" + currentTime + "] [INFO] Config.txt succesfully updated!");
+                System.out.println("[" + currentTime + "] [INFO] ytpotoken = " + poToken);
+                System.out.println("[" + currentTime + "] [INFO] ytvisitordata = " + visitorData);
             } else {
-                System.err.println("ERR: Failed to find po_token or visitor_data in Docker result.");
+                System.err.println("[" + currentTime + "] [ERROR]: Failed to find po_token or visitor_data in Docker result.");
             }
         } catch (Exception e) {
-            System.err.println("ERR: Error while updating config.txt " + e.getMessage());
+            System.err.println("[" + currentTime + "] [ERROR]: Error while updating config.txt " + e.getMessage());
         }
     }
 }
