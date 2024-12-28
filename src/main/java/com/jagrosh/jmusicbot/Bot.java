@@ -207,31 +207,17 @@ public class Bot
                     configContent = configContent.replaceAll("ytpotoken\\s*=\\s*\"[^\"]*\"", "ytpotoken = \"" + poToken + "\"");
                 }
                 
-                if (!configContent.contains("//New PO_TOKEN generated at:")) {
-                    configContent += "\n//New PO_TOKEN generated at: " + currentTime;
-                } else {
-                    configContent = configContent.replaceAll("(?<=ytpotoken\\s*=\\s*\"[^\"]*\")[^/]*(?=//New PO_TOKEN generated at:)", "");
-                    configContent = configContent.replaceAll("(?<=ytpotoken\\s*=\\s*\"[^\"]*\")", "//New PO_TOKEN generated at: " + currentTime); 
-                }
-                
                 if (!configContent.contains("ytvisitordata =")) {
                     configContent += "\nytvisitordata = \"" + visitorData + "\"";
                 } else {
                     configContent = configContent.replaceAll("ytvisitordata\\s*=\\s*\"[^\"]*\"", "ytvisitordata = \"" + visitorData + "\"");
                 }
                 
-                if (!configContent.contains("//New VISITOR_DATA generated at:")) {
-                    configContent += "\n//New VISITOR_DATA generated at: " + currentTime;
-                } else {
-                    configContent = configContent.replaceAll("(?<=ytvisitordata\\s*=\\s*\"[^\"]*\")[^/]*(?=//New VISITOR_DATA generated at:)", "");
-                    configContent = configContent.replaceAll("(?<=ytvisitordata\\s*=\\s*\"[^\"]*\")", "//New VISITOR_DATA generated at: " + currentTime);
-                }
-                
                 Files.writeString(configPath, configContent);
 
-                System.out.println("[" + currentTime + "] [INFO] Config.txt succesfully updated!");
                 System.out.println("[" + currentTime + "] [INFO] ytpotoken = " + poToken);
                 System.out.println("[" + currentTime + "] [INFO] ytvisitordata = " + visitorData);
+                System.out.println("[" + currentTime + "] [INFO] Config.txt succesfully updated!");
             } else {
                 System.err.println("[" + currentTime + "] [ERROR]: Failed to find po_token or visitor_data in Docker result.");
             }
