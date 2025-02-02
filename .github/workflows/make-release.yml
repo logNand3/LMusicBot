@@ -15,11 +15,13 @@ jobs:
   build_jar:
     name: Build Jar
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Set up JDK 11
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'adopt'
@@ -34,7 +36,7 @@ jobs:
       - name: Rename jar
         run: mv target/*-All.jar JMusicBot-${{ github.event.inputs.version_number }}.jar
       - name: Upload jar
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jar
           path: JMusicBot-${{ github.event.inputs.version_number }}.jar
@@ -45,26 +47,17 @@ jobs:
     needs: build_jar
     steps:
       - name: Download a Build Artifact
-        uses: actions/download-artifact@v3.0.0
+        uses: actions/download-artifact@v4
         with:
           name: jar
           path: .
-      - name: Show Artifacts
-        run: ls -R
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.event.inputs.version_number }}
-          name: Version ${{ github.event.inputs.version_number }}
+          name: ${{ github.event.inputs.version_number }}
           draft: true
           prerelease: false
-          artifacts: "*.jar"
+          artifacts: "JMusicBot-${{ github.event.inputs.version_number }}.jar"
           body: |
             ${{ github.event.inputs.info }}
-            
-            ---
-            ### Setup
-            https://jmusicbot.com/setup  
-            https://jmusicbot.com/config  
-            # Download: [JMusicBot-${{ github.event.inputs.version_number }}.jar](https://github.com/jagrosh/MusicBot/releases/download/${{ github.event.inputs.version_number }}/JMusicBot-${{ github.event.inputs.version_number }}.jar)
