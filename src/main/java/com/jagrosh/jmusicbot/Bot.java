@@ -35,6 +35,9 @@ import java.nio.file.*;
 import java.util.regex.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.net.HttpURLConnection;
+import org.json.JSONObject;
+
 /* */
 
 /**
@@ -55,6 +58,7 @@ public class Bot
     private boolean shuttingDown = false;
     private JDA jda;
     private GUI gui;
+    
     
     public Bot(EventWaiter waiter, BotConfig config, SettingsManager settings)
     {
@@ -169,8 +173,7 @@ public class Bot
         this.gui = gui;
     }
     
-    private void updateConfig()
-    {
+    private void updateConfig() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         String currentTime = sdf.format(new Date());
 
@@ -198,31 +201,36 @@ public class Bot
                 String poToken = poTokenMatcher.group(1);
                 String visitorData = visitorDataMatcher.group(1);
 
-                Path configPath = Paths.get("config.txt");
-                String configContent = Files.readString(configPath);
-
-                if (!configContent.contains("ytpotoken =")) {
-                    configContent += "\nytpotoken = \"" + poToken + "\"";
+                Path configPath = Paths.get("serversettings.json");
+                JSONObject configJson;
+            
+                if (Files.exists(configPath)) {
+                    String configContent = Files.readString(configPath);
+                    configJson = new JSONObject(configContent);
                 } else {
-                    configContent = configContent.replaceAll("ytpotoken\\s*=\\s*\"[^\"]*\"", "ytpotoken = \"" + poToken + "\"");
+                    configJson = new JSONObject();
                 }
-                
-                if (!configContent.contains("ytvisitordata =")) {
-                    configContent += "\nytvisitordata = \"" + visitorData + "\"";
-                } else {
-                    configContent = configContent.replaceAll("ytvisitordata\\s*=\\s*\"[^\"]*\"", "ytvisitordata = \"" + visitorData + "\"");
+            
+                JSONObject youtubeConfig = configJson.optJSONObject("youtube");
+                if (youtubeConfig == null) {
+                    youtubeConfig = new JSONObject();
                 }
-                
-                Files.writeString(configPath, configContent);
+            
+                youtubeConfig.put("ytpotoken", poToken);
+                youtubeConfig.put("ytvisitordata", visitorData);
+                configJson.put("youtube", youtubeConfig);
+            
+                Files.writeString(configPath, configJson.toString(4));
 
                 System.out.println("[" + currentTime + "] [INFO] ytpotoken = " + poToken);
                 System.out.println("[" + currentTime + "] [INFO] ytvisitordata = " + visitorData);
-                System.out.println("[" + currentTime + "] [INFO] Config.txt succesfully updated!");
+                System.out.println("[" + currentTime + "] [INFO] serversettings.json successfully updated!");
             } else {
                 System.err.println("[" + currentTime + "] [ERROR]: Failed to find po_token or visitor_data in Docker result.");
+                System.err.println("[" + currentTime + "] [ERROR]: !!! ENTER MANUALLY TO SERVERSETTINGS.JSON !!!");
             }
         } catch (Exception e) {
-            System.err.println("[" + currentTime + "] [ERROR]: Error while updating config.txt " + e.getMessage());
+            System.err.println("[" + currentTime + "] [ERROR]: Error while updating serversettings.json " + e.getMessage());
         }
     }
 }
