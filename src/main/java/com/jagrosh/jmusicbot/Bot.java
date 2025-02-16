@@ -35,9 +35,6 @@ import java.nio.file.*;
 import java.util.regex.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.net.HttpURLConnection;
-import org.json.JSONObject;
-
 /* */
 
 /**
@@ -201,36 +198,20 @@ public class Bot
                 String poToken = poTokenMatcher.group(1);
                 String visitorData = visitorDataMatcher.group(1);
 
-                Path configPath = Paths.get("serversettings.json");
-                JSONObject configJson;
-            
-                if (Files.exists(configPath)) {
-                    String configContent = Files.readString(configPath);
-                    configJson = new JSONObject(configContent);
-                } else {
-                    configJson = new JSONObject();
-                }
-            
-                JSONObject youtubeConfig = configJson.optJSONObject("youtube");
-                if (youtubeConfig == null) {
-                    youtubeConfig = new JSONObject();
-                }
-            
-                youtubeConfig.put("ytpotoken", poToken);
-                youtubeConfig.put("ytvisitordata", visitorData);
-                configJson.put("youtube", youtubeConfig);
-            
-                Files.writeString(configPath, configJson.toString(4));
+                Path tokensFilePath = Paths.get("tokens.txt");
+                String tokenData = "ytpotoken=" + poToken + "\nytvisitordata=" + visitorData;
+
+                Files.writeString(tokensFilePath, tokenData);
 
                 System.out.println("[" + currentTime + "] [INFO] ytpotoken = " + poToken);
                 System.out.println("[" + currentTime + "] [INFO] ytvisitordata = " + visitorData);
-                System.out.println("[" + currentTime + "] [INFO] serversettings.json successfully updated!");
+                System.out.println("[" + currentTime + "] [INFO] tokens.txt successfully updated!");
             } else {
                 System.err.println("[" + currentTime + "] [ERROR]: Failed to find po_token or visitor_data in Docker result.");
-                System.err.println("[" + currentTime + "] [ERROR]: !!! ENTER MANUALLY TO SERVERSETTINGS.JSON !!!");
+                System.err.println("[" + currentTime + "] [ERROR]: !!! ENTER MANUALLY TO TOKENS.TXT !!!");
             }
         } catch (Exception e) {
-            System.err.println("[" + currentTime + "] [ERROR]: Error while updating serversettings.json " + e.getMessage());
+            System.err.println("[" + currentTime + "] [ERROR]: Error while updating tokens.txt " + e.getMessage());
         }
     }
 }
