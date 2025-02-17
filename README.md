@@ -1,11 +1,7 @@
-## Unofficial JMusicBot update (Forked from: https://github.com/jagrosh/MusicBot, with @MichailiK commits)
+## Unofficial JMusicBot update (Forked from: https://github.com/jagrosh/MusicBot, with @MichailiK commits and @JaduaStudios Spotify and Apple Music Support.)
 Compiled using Maven
 
-### In your bot folder, edit "config.txt" and add
-```
-ytpotoken = "PO_TOKEN_HERE"
-ytvisitordata = "VISITOR_DATA_HERE"
-```
+### To configure your bot, place the EXAMPLEconfig.txt found in the project into the same folder as your bot. Rename it to config.txt, and edit the variables.
 
 To get po_token and visitor_data, use [youtube-trusted-session-generator](https://github.com/iv-org/youtube-trusted-session-generator)
 
