@@ -43,7 +43,7 @@ public class BotConfig
     private final static String END_TOKEN = "/// END OF JMUSICBOT CONFIG ///";
     
     private Path path = null;
-    private String token, prefix, altprefix, helpWord, playlistsFolder, logLevel,
+    private String token, prefix, altprefix, helpWord, playlistsFolder, logLevel, spotifyID, spotifySecret, appleAPI, yandexAPI,
             successEmoji, warningEmoji, errorEmoji, loadingEmoji, searchingEmoji,
             ytPoToken, ytVisitorData, evalEngine;
     private YouTubeUtil.RoutingPlanner ytRoutingPlanner;
@@ -417,22 +417,22 @@ public class BotConfig
     }
 
     public String getSpotifyID()
-      {
+    {
         return spotifyID;
     }
 
     public String getSpotifySecret()
-      {
+    {
         return spotifySecret;
     }
 
     public String getAppleAPI()
-      {
+    {
         return appleAPI;
     }
 
     public String getYandexAPI()
-      {
+    {
         return yandexAPI;
     }
 }

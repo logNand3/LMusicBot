@@ -82,6 +82,21 @@ public class PlayerManager extends DefaultAudioPlayerManager
         yt.setPlaylistPageCount(bot.getConfig().getMaxYTPlaylistPages());
         registerSourceManager(yt);
 
+        if(!"NONE".equals(bot.getConfig().getSpotifyID()) && !"NONE".equals(bot.getConfig().getSpotifySecret()))
+        {
+            this.registerSourceManager(new SpotifySourceManager(null, bot.getConfig().getSpotifyID(), bot.getConfig().getSpotifySecret(), "NL", this));
+        }
+
+        if(!"NONE".equals(bot.getConfig().getAppleAPI()))
+        {
+            this.registerSourceManager(new AppleMusicSourceManager(null, bot.getConfig().getAppleAPI() , "us", this));
+        }
+
+        if(!"NONE".equals(bot.getConfig().getYandexAPI()))
+        {
+            this.registerSourceManager(new YandexMusicSourceManager(bot.getConfig().getYandexAPI()));
+        }
+
         registerSourceManager(SoundCloudAudioSourceManager.createDefault());
         registerSourceManager(new BandcampAudioSourceManager());
         registerSourceManager(new VimeoAudioSourceManager());
@@ -92,25 +107,10 @@ public class PlayerManager extends DefaultAudioPlayerManager
         registerSourceManager(new HttpAudioSourceManager(MediaContainerRegistry.DEFAULT_REGISTRY));
 
         AudioSourceManagers.registerLocalSource(this);
+        AudioSourceManagers.registerRemoteSources(this);
 
         DuncteBotSources.registerAll(this, "en-US");
 
-        if(!"NONE".equals(bot.getConfig().getSpotifyID()) && !"NONE".equals(bot.getConfig().getSpotifySecret()))
-        {
-        this.registerSourceManager(new SpotifySourceManager(null, bot.getConfig().getSpotifyID(), bot.getConfig().getSpotifySecret(), "NL", this));
-        }
-
-        if(!"NONE".equals(bot.getConfig().getAppleAPI()))
-        {
-        this.registerSourceManager(new AppleMusicSourceManager(null, bot.getConfig().getAppleAPI() , "us", this));
-        }
-
-        if(!"NONE".equals(bot.getConfig().getYandexAPI()))
-        {
-        this.registerSourceManager(new YandexMusicSourceManager(bot.getConfig().getYandexAPI()));
-        }
-
-        AudioSourceManagers.registerRemoteSources(this);
         source(YoutubeAudioSourceManager.class).setPlaylistPageCount(10);
     }
     
