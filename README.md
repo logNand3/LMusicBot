@@ -1,4 +1,4 @@
-## Unofficial JMusicBot update (Forked from: https://github.com/jagrosh/MusicBot, with @MichailiK commits and @JaduaStudios Spotify and Apple Music Support.)
+## Unofficial JMusicBot (Forked from: [https://github.com/jagrosh/MusicBot](https://github.com/SeVile/MusicBot), with @JaduaStudios Spotify and Apple Music Support added.)
 Compiled using Maven
 
 ### To configure your bot, place the EXAMPLEconfig.txt found in the project into the same folder as your bot. Rename it to config.txt, and edit the variables.
