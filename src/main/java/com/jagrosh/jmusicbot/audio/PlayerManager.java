@@ -16,6 +16,9 @@
 package com.jagrosh.jmusicbot.audio;
 
 import com.dunctebot.sourcemanagers.DuncteBotSources;
+import com.github.topi314.lavasrc.applemusic.AppleMusicSourceManager;
+import com.github.topi314.lavasrc.spotify.SpotifySourceManager;
+import com.github.topi314.lavasrc.yandexmusic.YandexMusicSourceManager;
 import com.jagrosh.jmusicbot.Bot;
 import com.jagrosh.jmusicbot.BotConfig;
 import com.jagrosh.jmusicbot.utils.YouTubeUtil;
@@ -91,6 +94,24 @@ public class PlayerManager extends DefaultAudioPlayerManager
         AudioSourceManagers.registerLocalSource(this);
 
         DuncteBotSources.registerAll(this, "en-US");
+
+        if(!"NONE".equals(bot.getConfig().getSpotifyID()) && !"NONE".equals(bot.getConfig().getSpotifySecret()))
+        {
+        this.registerSourceManager(new SpotifySourceManager(null, bot.getConfig().getSpotifyID(), bot.getConfig().getSpotifySecret(), "NL", this));
+        }
+
+        if(!"NONE".equals(bot.getConfig().getAppleAPI()))
+        {
+        this.registerSourceManager(new AppleMusicSourceManager(null, bot.getConfig().getAppleAPI() , "us", this));
+        }
+
+        if(!"NONE".equals(bot.getConfig().getYandexAPI()))
+        {
+        this.registerSourceManager(new YandexMusicSourceManager(bot.getConfig().getYandexAPI()));
+        }
+
+        AudioSourceManagers.registerRemoteSources(this);
+        source(YoutubeAudioSourceManager.class).setPlaylistPageCount(10);
     }
     
     public Bot getBot()

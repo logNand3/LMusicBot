@@ -45,7 +45,10 @@ JMusicBot supports all sources and formats supported by [lavaplayer](https://git
   * SoundCloud
   * Bandcamp
   * Vimeo
+  * Spotify (With API key)
+  * Apple Music (With API key)
   * Twitch streams
+  * Reddit
   * Local files
   * HTTP URLs
 ### Formats

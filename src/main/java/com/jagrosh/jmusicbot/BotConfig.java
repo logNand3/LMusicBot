@@ -88,6 +88,10 @@ public class BotConfig
             errorEmoji = config.getString("error");
             loadingEmoji = config.getString("loading");
             searchingEmoji = config.getString("searching");
+            spotifyID = config.getString("spotifyid");
+            spotifySecret = config.getString("spotifysecret");
+            appleAPI = config.getString("applesecret");
+            yandexAPI = config.getString("yandexsecret");
             game = OtherUtil.parseGame(config.getString("game"));
             status = OtherUtil.parseStatus(config.getString("status"));
             stayInChannel = config.getBoolean("stayinchannel");
@@ -362,7 +366,7 @@ public class BotConfig
     {
         return evalEngine;
     }
-    
+
     public boolean useNPImages()
     {
         return npImages;
@@ -377,7 +381,7 @@ public class BotConfig
     {
         return maxYTPlaylistPages;
     }
-    
+
     public String getMaxTime()
     {
         return TimeUtil.formatTime(maxSeconds * 1000);
@@ -410,5 +414,25 @@ public class BotConfig
     public Config getTransforms()
     {
         return transforms;
+    }
+
+    public String getSpotifyID()
+      {
+        return spotifyID;
+    }
+
+    public String getSpotifySecret()
+      {
+        return spotifySecret;
+    }
+
+    public String getAppleAPI()
+      {
+        return appleAPI;
+    }
+
+    public String getYandexAPI()
+      {
+        return yandexAPI;
     }
 }
