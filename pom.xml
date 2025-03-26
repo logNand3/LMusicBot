@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.jagrosh</groupId>
     <artifactId>JMusicBot</artifactId>
-    <version>Snapshot</version>
+    <version>0.4.3.5</version>
     <packaging>jar</packaging>
 
     <repositories>
@@ -33,7 +33,7 @@
         <repository>
             <id>arbjergDev</id>
             <name>Lavalink Repository</name>
-            <url>https://maven.lavalink.dev/releases</url>
+            <url>https://maven.kikkia.dev/snapshots</url>
         </repository>
     </repositories>
 
@@ -54,7 +54,7 @@
         <dependency>
             <groupId>dev.arbjerg</groupId>
             <artifactId>lavaplayer</artifactId>
-            <version>2.2.2</version>
+            <version>2.2.3</version>
         </dependency>
         <dependency>
             <groupId>dev.arbjerg</groupId>
@@ -63,8 +63,8 @@
         </dependency>
         <dependency>
             <groupId>dev.lavalink.youtube</groupId>
-            <artifactId>common</artifactId>
-            <version>1.11.5</version>
+            <artifactId>youtube-plugin</artifactId>
+            <version>5ce67f60c656e0dc60687ea7b471663c8718ea1c</version>
         </dependency>
         <dependency>
             <groupId>com.github.jagrosh</groupId>
@@ -114,7 +114,7 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
-            <version>1.5</version>
+            <version>3.2.0</version>
             <executions>
                 <execution>
                     <phase>package</phase>
