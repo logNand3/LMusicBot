@@ -163,15 +163,22 @@ public class OtherUtil
     
     public static void checkVersion(Prompt prompt)
     {
-        // Get current version number
         String version = getCurrentVersion();
+        String latestJagrosh = getLatestVersion("jagrosh");
+        String latestSeVile = getLatestVersion("SeVile");
         
-        // Check for new version
-        String latestVersion = getLatestVersion();
+        boolean isSeVileVersion = version.toLowerCase().contains("sevile");
         
-        if(latestVersion!=null && !latestVersion.equals(version))
-        {
-            prompt.alert(Prompt.Level.WARNING, "JMusicBot Version", String.format(NEW_VERSION_AVAILABLE, version, latestVersion));
+        if (isSeVileVersion) {
+            if (latestJagrosh != null && compareVersions(latestJagrosh, "0.4.4") > 0) {
+                prompt.alert(Prompt.Level.WARNING, "JMusicBot Version", 
+                    String.format(NEW_VERSION_AVAILABLE, version, latestJagrosh));
+            }
+        } else {
+            if (latestJagrosh != null && !latestJagrosh.equals(version)) {
+                prompt.alert(Prompt.Level.WARNING, "JMusicBot Version", 
+                    String.format(NEW_VERSION_AVAILABLE, version, latestJagrosh));
+            }
         }
     }
     
@@ -183,33 +190,42 @@ public class OtherUtil
             return "UNKNOWN";
     }
     
-    public static String getLatestVersion()
-    {
-        try
-        {
+    public static String getLatestVersion(String repoOwner) {
+        try {
             Response response = new OkHttpClient.Builder().build()
-                    .newCall(new Request.Builder().get().url("https://api.github.com/repos/jagrosh/MusicBot/releases/latest").build())
+                    .newCall(new Request.Builder().get()
+                    .url("https://api.github.com/repos/" + repoOwner + "/MusicBot/releases/latest").build())
                     .execute();
             ResponseBody body = response.body();
-            if(body != null)
-            {
-                try(Reader reader = body.charStream())
-                {
+            if (body != null) {
+                try (Reader reader = body.charStream()) {
                     JSONObject obj = new JSONObject(new JSONTokener(reader));
                     return obj.getString("tag_name");
-                }
-                finally
-                {
+                } finally {
                     response.close();
                 }
             }
-            else
-                return null;
-        }
-        catch(IOException | JSONException | NullPointerException ex)
-        {
+        } catch (IOException | JSONException | NullPointerException ex) {
             return null;
         }
+        return null;
+    }
+
+    public static int compareVersions(String v1, String v2) 
+    {
+        String[] parts1 = v1.replace("v", "").split("\\.");
+        String[] parts2 = v2.replace("v", "").split("\\.");
+    
+        int length = Math.max(parts1.length, parts2.length);
+        for (int i = 0; i < length; i++) 
+        {
+            int num1 = i < parts1.length ? Integer.parseInt(parts1[i]) : 0;
+            int num2 = i < parts2.length ? Integer.parseInt(parts2[i]) : 0;
+    
+            if (num1 > num2) return 1;
+            if (num1 < num2) return -1;
+        }
+        return 0;
     }
 
     /**

@@ -1,9 +1,18 @@
-## Unofficial JMusicBot (Forked from: [https://github.com/jagrosh/MusicBot](https://github.com/SeVile/MusicBot), with @JaduaStudios Spotify and Apple Music Support added.)
-Compiled using Maven
+## Unofficial JMusicBot update (Forked from: https://github.com/SeVile/MusicBot, with @MichailiK commits)
 
-### To configure your bot, place the EXAMPLEconfig.txt found in the project into the same folder as your bot. Rename it to config.txt, and edit the variables.
+> [!IMPORTANT]
+> This version has a built-in Docker script ([youtube-trusted-session-generator](https://github.com/iv-org/youtube-trusted-session-generator)) that enters po_token and visitor_data automatically into the _tokens.txt_ (file creates with first launch) file each time the bot is launched. 
+> For proper operation you need **Docker** installed and **_running_** on your device.
 
-To get po_token and visitor_data, use [youtube-trusted-session-generator](https://github.com/iv-org/youtube-trusted-session-generator)
+<img width="887" alt="Zrzut ekranu 2024-12-26 o 18 57 45" src="https://github.com/user-attachments/assets/e66d1fb3-3301-4c98-a44b-d521c0940dac" />
+
+
+> [!TIP]
+> If Docker doesn't work, enter PO_TOKEN and VISITOR_DATA manually to tokens.txt
+```
+ytpotoken=PO_TOKEN_HERE
+ytvisitordata=VISITOR_DATA_HERE
+```
 
 <img align="right" src="https://i.imgur.com/zrE80HY.png" height="200" width="200">
 

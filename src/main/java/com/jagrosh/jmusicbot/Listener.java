@@ -71,14 +71,22 @@ public class Listener extends ListenerAdapter
                 {
                     User owner = bot.getJDA().retrieveUserById(bot.getConfig().getOwnerId()).complete();
                     String currentVersion = OtherUtil.getCurrentVersion();
-                    String latestVersion = OtherUtil.getLatestVersion();
-                    if(latestVersion!=null && !currentVersion.equalsIgnoreCase(latestVersion))
+                    String latestVersionJagrosh = OtherUtil.getLatestVersion("jagrosh");
+                    String latestVersionSeVile = OtherUtil.getLatestVersion("SeVile");
+                    
+                    if (latestVersionJagrosh != null && latestVersionSeVile != null) 
                     {
-                        String msg = String.format(OtherUtil.NEW_VERSION_AVAILABLE, currentVersion, latestVersion);
-                        owner.openPrivateChannel().queue(pc -> pc.sendMessage(msg).queue());
+                        boolean isJagroshNewerThan043 = OtherUtil.compareVersions(latestVersionJagrosh, "0.4.3") > 0;
+                        boolean isCurrentVersionSeVile = currentVersion.equalsIgnoreCase(latestVersionSeVile);
+                        
+                        if (isJagroshNewerThan043 && !isCurrentVersionSeVile) 
+                        {
+                            String msg = String.format(OtherUtil.NEW_VERSION_AVAILABLE, currentVersion, latestVersionJagrosh);
+                            owner.openPrivateChannel().queue(pc -> pc.sendMessage(msg).queue());
+                        }
                     }
                 }
-                catch(Exception ignored) {} // ignored
+                catch(Exception ignored) {}
             }, 0, 24, TimeUnit.HOURS);
         }
     }
